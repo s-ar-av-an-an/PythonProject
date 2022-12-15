@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FlaskApp</title>
+    <link rel="stylesheet" href="static/CSS/login.css">
+</head>
+<body>
+    <div class="background">
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+    <form action = "/form_login" method = "post" style="color: white;">
+        <h2 style="color: white;text-align: center;">Welcome To Database Login</h2>
+        Username:<br>
+        <input type = "text" name = "username" ><br>
+        Password:<br>
+        <input type = "password" name = "password" ><br><br>
+        <input class="button" style="background-color:white;color:black" type = "submit" value = "Login">
+    </form>
+    <h2>{{ status }}</h2>
+</body>
+</html>

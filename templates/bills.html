@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:i xmlns:i>
+<head>
+    <meta charset="UTF-8">
+    <title>Bills</title>
+    <link rel="stylesheet" href="static/CSS/bills.css">
+</head>
+<body>
+    <div class="wrapper">
+        <div class="sidebar">
+            <ul>
+                <h3>{{content}}</h3><br>
+                {% for i in bills %}
+                <form method="post" action="/view_tables/bills">
+                    <input type="submit" class="icon" value={{ i }} name="action">
+                </form>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
