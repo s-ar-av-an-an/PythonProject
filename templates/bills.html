@@ -9,12 +9,14 @@
     <div class="wrapper">
         <div class="sidebar">
             <ul>
-                <h3>{{content}}</h3><br>
+                <h3 style="color: white;">{{content}}</h3><br>
                 {% for i in bills %}
-                <form method="post" action="/view_tables/bills">
-                    <input type="submit" class="icon" value={{ i }} name="action">
+                <form method="post" class="icon" action="/view_tables/bills">
+                    <input type="submit" style="color: white;background-color: unset;border: 0ch;" value={{ i }} name="action">
                 </form>
                 {% endfor %}
+                <br/>
+                <a class="icon" href="/dashboard">dashboard</a>
             </ul>
         </div>
     </div>
