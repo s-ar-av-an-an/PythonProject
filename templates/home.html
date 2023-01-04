@@ -3,26 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <title>Homepage</title>
-    <link rel="stylesheet" href="static/CSS/home.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='/CSS/home.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width,initial scale=1.0">
 </head>
 <body>
-    <input type="checkbox" id="active">
-    <label for="active" class="menu-btn"><span></span></label>
-    <label for="active" class="close"></label>
-    <div class="wrapper">
-        <ul>
-            <li>
-                <a href="/modify_bill">Data</a>
-            </li>
-            <li>
-                <a href="/view_tables">Invoices</a>
-            </li><br><br><br><br><br><br><br><br>
-            <li>
-                <a href="/">SignOut</a>
-            </li>
-
+    <div class="hamburger-menu">
+        <input id="menu__toggle" type="checkbox" />
+        <label class="menu__btn" for="menu__toggle">
+          <span></span>
+        </label>
+    
+        <ul class="menu__box">
+          <li><a class="menu__item" href="/modify_bill">Data</a></li>
+          <li><a class="menu__item" href="/view_tables">Invoices</a></li>
+          <li><a class="menu__item" href="/">Sign Out</a></li>
         </ul>
     </div>
     <div class="content">
@@ -32,3 +28,7 @@
     </div>
 </body>
 </html>
+
+
+
+

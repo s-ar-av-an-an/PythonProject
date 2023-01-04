@@ -1,3 +1,151 @@
+/*Strip the ul of padding and list styling*/
+.bar ul {
+    list-style-type:none;
+    margin:0;
+    padding:0;
+    position: absolute;
+  }
+  /*Create a horizontal list with spacing*/
+  .bar li {
+    display:inline-block;
+    float: left;
+    margin-right: 1px;
+  }
+  /*Style for menu links*/
+  .bar li a {
+    display:block;
+    min-width:140px;
+    height: 50px;
+    text-align: center;
+    line-height: 50px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #fff;
+    background: #2f3036;
+    text-decoration: none;
+  }
+  /*Hover state for top level links*/
+  .bar li:hover a,.bar li:active a {
+    background: #19c589;
+  }
+  /*Style for dropdown links*/
+  .bar li:hover ul input[type=submit],.bar li:hover ul a
+  ,.bar li:active ul input[type=submit],li:active ul a{
+    background: #f3f3f3;
+    color: #2f3036;
+    height: 40px;
+    line-height: 40px;
+    justify-items: auto;
+  }
+  
+  /*Hover state for dropdown links*/
+  .bar li:hover ul a:hover,.bar li:hover ul input[type=submit]:hover
+  ,.bar li:active ul a:active,.bar li:active ul input[type=submit]:active {
+    background: #19c589;
+    color: #fff;
+  }
+  
+  /*Hide dropdown links until they are needed*/
+  .bar li ul {
+    display: none;
+  }
+  
+  /*Make dropdown links vertical*/
+  .bar li ul li {
+    display: block;
+    float: none;
+  }
+  
+  /*Prevent text wrapping*/
+  .bar li ul li a {
+    width: auto;
+    min-width: 100px;
+    padding: 0 20px;
+  }
+  
+  /*Display the dropdown on hover*/
+  .bar ul li a:hover + .hidden, .bar .hidden:hover
+  ,.bar ul li a:active + .hidden, .bar .hidden:active {
+    display: block;
+  }
+  
+  /*Style 'show menu' label button and hide it by default*/
+  .show-menu {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    text-decoration: none;
+    color: #fff;
+    background: #19c589;
+    text-align: center;
+    padding: 10px 0;
+    display: none;
+  }
+  
+  /*Hide checkbox*/
+  .bar input[type=checkbox]{
+    display: none;
+  }
+  
+  /*Show menu when invisible checkbox is checked*/
+  .bar input[type=checkbox]:checked ~ #menu{
+    display: block;
+  }
+  
+  
+  .bar h3{
+    padding-right: 500px ;
+  }
+  
+  .Tables #icon { 
+    background:black;
+    color: white; 
+    border-style: solid;
+    cursor:pointer;
+    -webkit-border-radius: 2px;
+    border-radius: 5px; 
+    margin-top: 10px;
+    display: flex;
+  }
+  
+  .Tables #icon:hover{
+    background:skyblue;
+  }
+  
+  #invisible{
+    visibility: hidden;
+  }
+  
+  #visible{
+    visibility: visible;
+  }
+  
+  .Tables #plus{
+    position: relative;
+    margin-top: 5px;
+    color: black;
+    size: 10px;
+  }
+  
+  /*Responsive Styles*/
+  @media screen and (max-width : 760px){
+    /*Make dropdown links appear inline*/
+    .bar ul {
+        position: static;
+        display: none;
+    }
+    /*Create vertical spacing*/
+    .bar li {
+        margin-bottom: 1px;
+    }
+    /*Make all menu links full width*/
+    .bar ul li, .bar li a,.bar li input[type=text] {
+        width: 100%;
+    }
+    /*Display 'show menu' link*/
+    .show-menu {
+        display:block;
+    }
+  }
+  
+
 body {
     font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
     text-align: center;
@@ -86,6 +234,14 @@ body a {
 .invoice-box table tr.total td:nth-child(2) {
     border-top: 2px solid #eee;
     font-weight: bold;
+}
+
+#visible{
+    visibility: visible;
+}
+
+#hidden{
+    visibility: hidden;
 }
 
 @media only screen and (max-width: 600px) {

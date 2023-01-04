@@ -1,24 +1,29 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:i xmlns:i>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Bills</title>
-    <link rel="stylesheet" href="static/CSS/bills.css">
+    <title>Homepage</title>
+    <link rel="stylesheet" href="static/CSS/home.css">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width,initial scale=1.0">
 </head>
 <body>
+    <input type="checkbox" id="active">
+    <label for="active" class="menu-btn"><span></span></label>
+    <label for="active" class="close"></label>
     <div class="wrapper">
-        <div class="sidebar">
-            <ul>
-                <h3 style="color: white;">{{content}}</h3><br>
-                {% for i in bills %}
+        <ul>
+            <h3 style="color: white;">{{content}}</h3><br>
+            {% for i in bills %}
+            <li>
                 <form method="post" class="icon" action="/view_tables/bills">
                     <input type="submit" style="color: white;background-color: unset;border: 0ch;" value={{ i }} name="action">
                 </form>
-                {% endfor %}
-                <br/>
-                <a class="icon" href="/dashboard">dashboard</a>
-            </ul>
-        </div>
+            </li>
+            {% endfor %}
+            <a class="icon" href="/dashboard">dashboard</a>
+        </ul>
     </div>
 </body>
 </html>

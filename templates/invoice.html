@@ -3,35 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <title>Bills</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='/CSS/bills.css') }}">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{ url_for('static', filename='/CSS/invoice.css') }}">
 </head>
 <body>
-    <div class="wrapper">
-        <div class="sidebar">
-            <ul>
-                <h3 style="color: white;">{{content}}</h3><br>
-                {% for i in bills %}
-                <form method="post" class="icon" action="/view_tables/bills">
-                    <input type="submit" style="color: white;background-color: unset;border: 0ch;" value={{ i }} name="action">
-                </form>
-                {% endfor %}
-				<a class="icon" href="/dashboard">dashboard</a>
-            </ul>
-    </div>
-</body>
-</html>
+	<div class="bar">
+		<label for="show-menu" class="show-menu">Show Menu</label>
+		<input type="checkbox" id="show-menu" role="button">
+			<ul id="menu">
+			<li><a href="/dashboard">Dashboard</a></li>
+			<li>
+				<a href="#">Tables ￬</a>
+				<ul class="hidden">
+					<li>
+						{% for i in bills %}
+						<form method="post" action="/view_tables/bills">
+							<input type="submit" value={{ i }} name="action">
+						</form>
+						{% endfor %}
+					</li>
+				</ul>
+			</li>
+		</ul>
+	</div>
 
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="{{ url_for('static', filename='/CSS/invoice.css') }}"/>
-	</head>
 
-	<body>
-
-		<div class="invoice-box">
+	<div class="invoice-box" id={{ stat }}>
 			<table>
 				<tr class="top">
 					<td colspan="2">

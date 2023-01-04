@@ -22,20 +22,20 @@ def dashboard():
     return render_template("home.html")
 @app.route('/modify_bill',methods=['POST','GET'])
 def modify_bill():
-    return render_template('modifybills.html', bills=database.showTablesList(), content='Bills', visibilty="invisible", size=nrcount)
+    return render_template('modifybills.html', bills=database.showTablesList(), content='Bills', visibilty="invisible", size=nrcount, sidebar="visible")
 @app.route('/new_tbl')
 def new_tbl():
     database.createTable()
     return redirect(url_for('modify_bill'))
 @app.route('/view_tables', methods=['POST', 'GET'])
 def view_tables():
-    return render_template("bills.html", bills=database.showTablesList(),content='Bills')
+    return render_template("invoice.html", bills=database.showTablesList(),content='Bills',stat="hidden")
 
 @app.route('/view_tables/bills', methods=['POST', 'GET'])
 def viewBills():
-    temp_tname=request.form.get("action")
+    temp_tname = request.form.get("action")
     rows = database.printBill(temp_tname)
-    return render_template('invoice.html', rows=rows,bills=database.showTablesList(),content='Bills', total=database.total_amount(temp_tname))
+    return render_template('invoice.html', rows=rows,bills=database.showTablesList(),content='Bills', total=database.total_amount(temp_tname),stat="visible")
 
 @app.route('/table_name', methods=['POST', 'GET'])
 def vBills():
@@ -53,7 +53,7 @@ def modify_bills():
     rows = database.printBill(temp_tname)
     col_names = database.col_names(temp_tname)
     col_names.remove('id')
-    return render_template('modifybills.html', rows=rows, bills=database.showTablesList(), content='Bills', col_names = col_names, size=nrcount)
+    return render_template('modifybills.html', rows=rows, bills=database.showTablesList(), content='Bills', col_names = col_names, size=nrcount, visibilty="wrapper")
 @app.route('/remove',methods=["POST","GET"])
 def remove_table():
     global temp_tname
@@ -67,7 +67,7 @@ def add_row():
     col_names.remove('id')
     nrcount+=1
     return render_template('modifybills.html', extras=[i for i in range(nrcount)], rows=rows,
-                           bills=database.showTablesList(), content='Bills', col_names=col_names, size=nrcount)
+                           bills=database.showTablesList(), content='Bills', col_names=col_names, size=nrcount,visibilty="wrapper")
 
 @app.route('/remove_row',methods=['POST','GET'])
 def rem_row():
