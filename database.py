@@ -125,3 +125,7 @@ def checknchange(n):
     except:
         result = n
     return result
+
+def signout():
+    con.commit()
+    con.close()
