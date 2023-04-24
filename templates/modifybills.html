@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Data</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{ url_for('static', filename='/CSS/modify.css') }}">
+</head>
+<body >
+    <div class="bar" style="margin-left: auto;margin-right: auto;">
+        <label for="show-menu" class="show-menu">Show Menu</label>
+        <input type="checkbox" id="show-menu" role="button" style="border-style: solid ;border-color: black;">
+            <ul id="menu">
+            <li><a href="/dashboard">Dashboard</a></li>
+            <li>
+                <a href="#">Tables ￬</a>
+                <ul class="hidden">
+                    <li>
+                        {% for i in bills %}
+                        <form method="post" action="/table_name">
+                            <input type="submit" value={{ i }} name="action">
+                        </form>
+                        {% endfor %}
+                    </li>
+                    <li>
+                        <a href="/new_tbl">new table</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">Customers ￬</a>
+                <ul class="hidden">
+                    <li>
+                        {% for i in cust %}
+                        <form method="post" action="/table_name">
+                            <input type="submit" value=#{{ i }} name="cust_id">
+                        </form>
+                        {% endfor %}
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <br/><br/><br/>
+    <div id={{ visibilty }} class="Tables" >
+    <form action="/modify_table" method="post" id="modify"> 
+        <table>
+            <caption>Statement Summary</caption>
+            <thead>
+              <tr>
+                {%for i in col_names%}
+                <th scope="col">{{ i }}</th>
+                {%endfor%}
+              </tr>
+            </thead>
+            <tbody>
+                {%if (rows|length)<1 and (extras|length)<1 %}
+                        {%set extras=(0,)%}
+                {%endif%}
+                {%for i in rows%}
+                    <tr>
+                            <td data-label={{ col_names[0] }}>
+                                <input type="text" value={{ i[0] }} name={{ col_names[0] }}>
+                            </td>
+                        
+                            {%for j in range ((i|length)-1)%}
+                                {%if i[j]!=i[0]%}
+                                    <td scope="row" data-label={{ col_names[j] }}>
+                                            <input type="text" value={{ i[j] }} name={{ col_names[j] }}>    
+                                    </td>
+                                {%endif%}
+                            {%endfor%}
+        
+                            <td scope="row" data-label=""> 
+                                <form action="/remove_row" method="post"> 
+                                    <input type="submit" value="x" name={{ i[(i|length)-1] }}>
+                                </form>
+                            </td>
+                    </tr>
+                {%endfor%}
+                {%for i in extras%}
+                 <tr>
+                     {%for j in col_names%}
+                 
+                         <td scope="row" data-label={{ j }}>
+                                 <input type="text" name="new">  
+                         </td>
+                 
+                     {%endfor%}
+                 </tr>
+                {%endfor%}
+            </tbody>
+          </table>
+         <div id="plus" style="display: inline;">  
+             <input type="submit" name="plus"  value="+">
+             {% if size>0 %}
+                <input type="submit" name="minus" style = "color: black;padding-left:5px"  value="-">
+             {%endif%}
+         </div>
+         <div id = "button">
+            <input  id="icon" type="submit" value="Save" name="action1">
+            <input  id="icon" type="submit" class="Rem" value="Remove" onclick="confirmation()" name="action1">
+            
+         </div>
+        </form>
+    </div> 
+    <script>
+        function confirmation() {
+          let text = "Are You Sure To Remove ...?";
+          const form  = document.getElementById('modify');
+
+          if (confirm(text) != true) {
+            form.addEventListener('submit', (event) => {
+                // stop form submission
+                event.preventDefault();
+            });
+          } 
+          else{
+            form.submit()
+          }
+
+        }
+        </script>
+
+</body>
+</html>
+
+
+
+

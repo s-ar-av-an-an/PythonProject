@@ -1,0 +1,1 @@
+{'firstname': 'Arboshiki', 'lastname': 'K', 'email': 'company@example.com', 'phone': '(123)456-789', 'address': '455', 'state': 'Arizona', 'country': 'US', 'post': '85004', 'area': '05', 'submit': 'Confirm & exit'}

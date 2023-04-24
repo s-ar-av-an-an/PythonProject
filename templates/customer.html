@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Information</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='/CSS/customer.css') }}">
+</head>
+<body>
+  <div class="bar" style="margin-left: auto;margin-right: auto;">
+    <label for="show-menu" class="show-menu">Show Menu</label>
+    <input type="checkbox" id="show-menu" role="button" style="border-style: solid ;border-color: black;">
+        <ul id="menu">
+        <li><a href="/dashboard">Dashboard</a></li>
+        <li>
+            <a href="#">Customers ￬</a>
+            <ul class="hidden">
+                <form method="post" action="/customer">
+                <li>
+                    {% for i in cust %}
+                        <input class = "menu-btn" type="submit" value=#{{ i }} name="choose">
+                    {% endfor %}
+                </li>
+                <li>
+                  <input class = "menu-btn" type="submit" value='add customer' name="action">
+                </li>
+                </form>
+            </ul>
+        </li>
+    </ul>
+  </div>
+    <div class="formbold-main-wrapper">
+        <div class="formbold-form-wrapper">
+      
+          <form action="/customer" method="POST">
+            <div class="formbold-form-title">
+              <h2 class="">Customer Details</h2>
+              <p>
+                check and modify customer details which <br/>
+                will be reflected on invoice
+              </p>
+            </div>
+            <div>
+              <label for="area" class="formbold-form-label"> CustomerID </label>
+              <input
+                type="text"
+                name="cid"
+                id="area"
+                class="formbold-form-input"
+                value = {{ cus_det["cid"] }}
+                readonly
+              />
+            </div>
+      
+            <div class="formbold-input-flex">
+              <div>
+                <label for="firstname" class="formbold-form-label">
+                  First name
+                </label>
+                <input
+                  type="text"
+                  name="firstname"
+                  id="firstname"
+                  class="formbold-form-input"
+                  value = "{{ cus_det["firstname"] }}"
+                />
+              </div>
+              <div>
+                <label for="lastname" class="formbold-form-label"> Last name </label>
+                <input
+                  type="text"
+                  name="lastname"
+                  id="lastname"
+                  class="formbold-form-input"
+                  value = "{{ cus_det["lastname"] }}"
+                />
+              </div>
+            </div>
+      
+            <div class="formbold-input-flex">
+              <div>
+                <label for="email" class="formbold-form-label"> Email </label>
+                <input
+                  type="email"
+                  name="email"
+                  id="email"
+                  class="formbold-form-input"
+                  value = "{{ cus_det["email"] }}"
+                />
+              </div>
+              <div>
+                <label for="phone" class="formbold-form-label"> Phone number </label>
+                <input
+                  type="text"
+                  name="phone"
+                  id="phone"
+                  class="formbold-form-input"
+                  value = "{{ cus_det["phone"] }}"
+                />
+              </div>
+            </div>
+      
+            <div class="formbold-mb-3">
+              <label for="address" class="formbold-form-label">
+                Street Address
+              </label>
+              <input
+                type="text"
+                name="address"
+                id="address"
+                class="formbold-form-input"
+                value = "{{ cus_det["address"]}}"
+              />
+            </div>
+      
+      
+            <div class="formbold-input-flex">
+              <div>
+                <label for="state" class="formbold-form-label"> State/Prvince </label>
+                <input
+                  type="text"
+                  name="state"
+                  id="state"
+                  class="formbold-form-input"
+                  value = "{{ cus_det["state"] }}"
+                />
+              </div>
+              <div>
+                <label for="country" class="formbold-form-label"> Country </label>
+                <input
+                  type="text"
+                  name="country"
+                  id="country"
+                  class="formbold-form-input"
+                  value = "{{ cus_det["country"] }}"
+                />
+              </div>
+            </div>
+      
+            <div class="formbold-input-flex">
+              <div>
+                <label for="post" class="formbold-form-label"> Post/Zip code </label>
+                <input
+                  type="text"
+                  name="post"
+                  id="post"
+                  class="formbold-form-input"
+                  value = "{{ cus_det["post"] }}"
+                />
+              </div>
+              <div>
+                <label for="area" class="formbold-form-label"> Area Code </label>
+                <input
+                  type="text"
+                  name="area"
+                  id="area"
+                  class="formbold-form-input"
+                  value = "{{ cus_det["area"] }}"
+                />
+              </div>
+            </div>
+            <input type="submit" id="formbold-btn" name="submit" value="Confirm & exit">
+            <input type="submit" id="formbold-btn" name="delete" value="Delete">
+          </form>
+        </div>
+      </div>
+</body>
+</html>

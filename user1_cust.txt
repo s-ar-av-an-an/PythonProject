@@ -1,0 +1,3 @@
+{'cid': '1', 'firstname': 'Johnn', 'lastname': 'Kennady', 'email': 'john123@example.com', 'phone': '8769943211', 'address': '796,Wasim street,Jharkhand', 'state': 'Uttar Pradesh', 'country': 'India', 'post': '50089', 'area': '68', 'submit': 'Confirm & exit'}
+{'cid': '2', 'firstname': 'Jackie', 'lastname': 'Chan', 'email': '123@email.com', 'phone': '9445656780', 'address': "3,Baker's Street", 'state': 'Wuhan', 'country': 'China', 'post': '', 'area': '', 'submit': 'Confirm & exit'}
+{'cid': '3', 'firstname': 'Tarun', 'lastname': 'A', 'email': '', 'phone': '', 'address': '', 'state': '', 'country': '', 'post': '', 'area': '', 'submit': 'Confirm & exit'}
