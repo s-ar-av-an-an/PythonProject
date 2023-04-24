@@ -1,7 +1,6 @@
-import tkinter.messagebox
-
 import mysql.connector as connector
 from datetime import datetime
+import string
 
 def establishConnection(user,passwd):
     try:
@@ -11,14 +10,14 @@ def establishConnection(user,passwd):
         if con.is_connected():
             global cur
             cur = con.cursor();
-            cur.execute("use bills")
+            cur.execute("use {}".format(user))
             return 1
     except:
         pass
 
     return 0
 
-def createTable():
+def createTable(cid):
 
     # Creating a table
     now = datetime.now()
@@ -32,17 +31,18 @@ def createTable():
     RATE FLOAT(8,2),
     AMOUNT FLOAT(8,2),
     id int auto_increment,
-    primary key(id));""".format(table_name)
+    primary key(id));""".format(table_name+'_c'+str(cid))
 
     cur.execute(create_table)
     con.commit()
 
-def showTablesList():
+def showTablesList(cid):
     cur.execute('show tables')
     tables=[]
     for i in cur.fetchall():
         for j in i:
-            tables.append(j)
+            if 'c'+str(cid) in j:
+                tables.append(j)
     return tables
 
 def col_names(tname):
@@ -62,7 +62,7 @@ def total_amount(tname):
 
 def modify(tname, req):
     count = 0
-    if req.get("action1") == "make changes":
+    if req.get("action1") == "Save":
         col_name = col_names(tname)
         cur.execute("select * from {};".format(tname))
         data = cur.fetchall()

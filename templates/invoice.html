@@ -2,33 +2,152 @@
 <html lang="en" xmlns:i xmlns:i>
 <head>
     <meta charset="UTF-8">
-    <title>Bills</title>
+    <title>invoice</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="{{ url_for('static', filename='/CSS/invoice.css') }}">
 </head>
 <body>
-	<div class="bar">
-		<label for="show-menu" class="show-menu">Show Menu</label>
-		<input type="checkbox" id="show-menu" role="button">
-			<ul id="menu">
-			<li><a href="/dashboard">Dashboard</a></li>
-			<li>
-				<a href="#">Tables ￬</a>
-				<ul class="hidden">
-					<li>
-						{% for i in bills %}
-						<form method="post" action="/view_tables/bills">
-							<input type="submit" value={{ i }} name="action">
-						</form>
-						{% endfor %}
-					</li>
-				</ul>
-			</li>
-		</ul>
+		<div class="bar">
+			<label for="show-menu" class="show-menu">Show Menu</label>
+			<input type="checkbox" id="show-menu" role="button">
+				<ul id="menu">
+				<li><a href="/dashboard">Dashboard</a></li>
+				<li>
+					<a href="#">Tables ￬</a>
+					<ul class="hidden">
+						<li>
+							{% for i in bills %}
+							<form method="post" action="/view_tables/bills">
+								<input type="submit" value={{ i }} name="action">
+							</form>
+							{% endfor %}
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+		<div><h3 id={{ gal }} class="header_text">Choose a template</h3></div>
+		<div class = "template_gallery" id={{ gal }}>
+			<div class="screen">
+				<div class="Bol"></div>
+				</div>
+				<form method="post" action="/view_tables/template">
+				<div class="img" style="margin-left:10%;">
+					<a href="" target="_blank"><img src="https://i.postimg.cc/H88dKQSF/invoice-layout1.jpg" alt="invoice-layout1"  width="300" height="210"/><input type="submit" value="template1" name="temp"></a>
+				<div class="desc"> A more bigger font appearance with elegant design</div>
+				</div>
+				<div class="img">
+					<a href="" target="_blank"><img src="https://i.postimg.cc/YjvrhHp8/invoice-layout2.jpg" width="300" height="210" alt="invoice-layout2"/><input type="submit" value="template2" name="temp"></a>
+				<div class="desc">Classic and simple design</div>
+				</div>
+				</form>
+			</div>
+		</div>
+		
+
+	<div class = "templates" id={{ temp1 }} style="z-index: 2;">
+		<div id="invoice">
+			<div class="toolbar hidden-print">
+				<div class="text-right">
+					<button class="misc" onclick="Print()"> Print</button>
+				</div>
+				<hr>
+			</div>
+			<div class="invoice overflow-auto">
+				<div style="min-width: 600px">
+					<header>
+						<div class="row">
+							<div class="col">
+								<a target="_blank">
+									<img/>
+									</a>
+							</div>
+							<div class="col company-details">
+								<h2 class="name">
+									<a target="_blank">
+									{{ company_details["firstname"] }}
+									</a>
+								</h2>
+								<div>{{ company_details["address"] }}</div>
+								<div>{{ company_details["phone"] }}</div>
+								<div>{{ company_details["email"] }}</div>
+							</div>
+						</div>
+					</header>
+					<main>
+						<div class="row contacts">
+							<div class="col invoice-to">
+								<div class="text-gray-light">INVOICE TO:</div>
+								<h2 class="to">{{ customer_details["name"] }}</h2>
+								<div class="address">{{ customer_details["address"] }}</div>
+								<div class="email"><a href={{ customer_details["mail"] }}>{{ customer_details["mail"] }}</a></div>
+							</div>
+							<div class="col invoice-details">
+								<h1 class="invoice-id">INVOICE 3-2-1</h1>
+								<div class="date">Date of Invoice: 01/10/2018</div>
+								<div class="date">Due Date: 30/10/2018</div>
+							</div>
+						</div>
+						<table border="0" cellspacing="0" cellpadding="0">
+							<thead>
+								<tr>
+									<th>Items</th>
+									<th class="text-left">Weight</th>
+									<th class="text-right">MC</th>
+									<th class="text-right">Rate</th>
+									<th class="text-right">Amount</th>
+								</tr>
+							</thead>
+							<tbody>
+								{%for i in rows%}
+								<tr>
+									<td class="no">{{i[0]}}</td>
+									<td class="text-left">{{i[1]}}</td>
+									<td class="unit">{{i[2]}}</td>
+									<td class="qty">{{i[3]}}</td>
+									<td class="total">{{i[4]}}</td>
+								</tr>
+								{%endfor%}
+								
+							</tbody>
+							<tfoot>
+								<tr>
+									<td colspan="2"></td>
+									<td colspan="2">SUBTOTAL</td>
+									<td>Rs {{total}}</td>
+								</tr>
+								<tr>
+									<td colspan="2"></td>
+									<td colspan="2">TAX 18%</td>
+									<td>Rs {{tax}}</td>
+								</tr>
+								<tr>
+									<td colspan="2"></td>
+									<td colspan="2">GRAND TOTAL</td>
+									<td>Rs {{final}}</td>
+								</tr>
+							</tfoot>
+						</table>
+						<div class="notices">
+							<div>NOTICE:</div>
+							<div class="notice">A finance charge of 1.5% will be made on unpaid balances after 30 days.</div>
+						</div>
+					</main>
+					<footer>
+						Thank You<br/>
+						Invoice was created on a computer and is valid without the signature and seal.
+					</footer>
+				</div>
+				<!--DO NOT DELETE THIS div. IT is responsible for showing footer always at the bottom-->
+				<div></div>
+			</div>
+		</div>
 	</div>
 
-
-	<div class="invoice-box" id={{ stat }}>
+	<div class="invoice-box" id={{ temp2 }} >
+		<div class="text-right">
+			<button class="misc" onclick="Print()"> Print</button>
+		</div>
 			<table>
 				<tr class="top">
 					<td colspan="2">
@@ -53,15 +172,15 @@
 						<table>
 							<tr>
 								<td>
-									Sparksuite, Inc.<br />
-									12345 Sunny Road<br />
-									Sunnyville, TX 12345
+									{{ company_details["firstname"] }}<br />
+									{{ company_details["address"] }}<br />
+									{{ company_details["phone"] }}
 								</td>
 
 								<td>
 									Acme Corp.<br />
-									John Doe<br />
-									john@example.com
+									{{ customer_details["name"] }}<br />
+									{{ customer_details["mail"] }}
 								</td>
 							</tr>
 						</table>
@@ -106,4 +225,10 @@
 			</table>
 		</div>
 	</body>
+	<script type = "text/javascript">
+		function Print(){
+			window.print()
+		}
+	</script>
+
 </html>
