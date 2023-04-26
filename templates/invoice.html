@@ -11,27 +11,43 @@
 			<label for="show-menu" class="show-menu">Show Menu</label>
 			<input type="checkbox" id="show-menu" role="button">
 				<ul id="menu">
-				<li><a href="/dashboard">Dashboard</a></li>
-				<li>
-					<a href="#">Tables ￬</a>
-					<ul class="hidden">
-						<li>
-							{% for i in bills %}
-							<form method="post" action="/view_tables/bills">
-								<input type="submit" value={{ i }} name="action">
-							</form>
-							{% endfor %}
-						</li>
-					</ul>
-				</li>
-			</ul>
+					<li><a href="/dashboard">Dashboard</a></li>
+					<li>
+						<a href="#">Tables ￬</a>
+						<ul class="hidden">
+							<li>
+								{% for i in bills %}
+								<form method="post" action="/view_tables">
+									<input type="submit" value={{ i }} name="action">
+								</form>
+								{% endfor %}
+							</li>
+							<li>
+								<a href="/new_tbl">new table</a>
+							</li>
+						</ul>
+					</li>
+					<li>
+						<a href="#">Customers ￬</a>
+						<ul class="hidden">
+							<li>
+								{% for i in cust %}
+								<form method="post" action="/view_tables">
+									<input type="submit" value=#{{ i }} name="cust_id">
+								</form>
+								{% endfor %}
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</div>
 		</div>
 		<div><h3 id={{ gal }} class="header_text">Choose a template</h3></div>
 		<div class = "template_gallery" id={{ gal }}>
 			<div class="screen">
 				<div class="Bol"></div>
 				</div>
-				<form method="post" action="/view_tables/template">
+				<form method="post" action="/view_tables">
 				<div class="img" style="margin-left:10%;">
 					<a href="" target="_blank"><img src="https://i.postimg.cc/H88dKQSF/invoice-layout1.jpg" alt="invoice-layout1"  width="300" height="210"/><input type="submit" value="template1" name="temp"></a>
 				<div class="desc"> A more bigger font appearance with elegant design</div>

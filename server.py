@@ -67,44 +67,34 @@ def new_tbl():
         return redirect(url_for('modify_bill'))
     else:
         return "YOU HAVE BEEN LOGGED OUT"
+
+
 @app.route('/view_tables', methods=['POST', 'GET'])
-def view_tables():
-    global grab, temp_tname
-    if flag:
-        grab = None
-        bills = database.showTablesList(cid)
-        temp_tname = bills[0]
-        return render_template("invoice.html", bills=bills, content='Bills', stat="hidden",
-                               gal="visible", temp1="hidden", temp2="hidden", company_details=company_details,
-                               customer_details=customer_details)
-    else:
-        return "YOU HAVE BEEN LOGGED OUT"
-
-@app.route('/view_tables/bills', methods=['POST', 'GET'])
-def viewBills():
-    global temp_tname
-    if flag:
-        temp_tname = request.form.get("action")
-        return redirect(url_for("template"))
-    else:
-        return "YOU HAVE BEEN LOGGED OUT"
-
-
-@app.route('/view_tables/template', methods=['POST', 'GET'])
 def template():
-    global grab, cid
+    global grab, cid, temp_tname, customers
+
+    bills = database.showTablesList(cid)
+    temp_tname = bills[0]
     rows = database.printBill(temp_tname)
     total = database.total_amount(temp_tname)
+
+
+    if request.form.get("cust_id"):
+        cid = request.form.get("cust_id").strip('#')
+
+    if request.form.get("action"):
+        temp_tname = request.form.get("action")
+
     if grab is None:
         grab = request.form.get("temp")
     if flag and grab is not None:
         if grab == "template1":
-            return render_template('invoice.html', rows=rows,bills=database.showTablesList(cid),content='Bills',total=total, tax=0.18*total,final=total+0.18*total ,temp1="visible",temp2="hidden",gal = "hidden", company_details = company_details, customer_details = customer_details)
+            return render_template('invoice.html', rows=rows,bills=database.showTablesList(cid),content='Bills',total=total, tax=0.18*total,final=total+0.18*total ,temp1="visible",temp2="hidden",gal = "hidden", company_details = company_details, customer_details = customer_details, cust=[x for x in customers])
         if grab == "template2":
             return render_template('invoice.html', rows=rows, bills=database.showTablesList(cid), content='Bills',
-                                   total=total, tax=0.18 * total, final=total + 0.18 * total, temp2="visible",temp1="hidden",gal = "hidden",company_details = company_details, customer_details = customer_details)
+                                   total=total, tax=0.18 * total, final=total + 0.18 * total, temp2="visible",temp1="hidden",gal = "hidden",company_details = company_details, customer_details = customer_details, cust=[x for x in customers])
     elif flag:
-        return render_template("invoice.html", bills=database.showTablesList(cid),content='Bills',stat="hidden",gal = "visible",temp1="hidden",temp2="hidden", company_details = company_details, customer_details = customer_details)
+        return render_template("invoice.html", bills=database.showTablesList(cid),content='Bills',stat="hidden",gal = "visible",temp1="hidden",temp2="hidden", company_details = company_details, customer_details = customer_details, cust=[x for x in customers])
     else:
         return "YOU HAVE BEEN LOGGED OUT"
 
@@ -237,20 +227,6 @@ def customer():
 
             return redirect(url_for("dashboard"))
         return render_template("customer.html", cus_det=c_det, cust = [x for x in customers])
-    else:
-        return "YOU HAVE BEEN LOGGED OUT"
-
-@app.route('/customers', methods = ['POST', 'GET'])
-def choose_cust():
-    if flag:
-        global cid
-        bills = database.showTablesList(cid)
-        temp_tname = bills[0]
-        rows = database.printBill(temp_tname)
-        col_names = database.col_names(temp_tname)
-        col_names.remove('id')
-
-        return render_template('modifybills.html', rows=rows, bills=database.showTablesList(cid), content='Bills', col_names = col_names, visibilty="wrapper", size=nrcount)
     else:
         return "YOU HAVE BEEN LOGGED OUT"
 
